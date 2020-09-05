@@ -33,6 +33,19 @@
                     <group colspan="2" col="2">
                         <field name="description" placeholder="Course description..." />
                     </group>
+                    <notebook>
+                        <page string="Sessions">
+                            <field name="session_ids">
+                                <tree editable="bottom">
+                                    <field name="name"/>
+                                    <field name="start_date"/>
+                                    <field name="duration"/>
+                                    <field name="seats"/>
+                                    <field name="instructor_id"/>
+                                </tree>
+                            </field>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
@@ -78,13 +91,17 @@
                                 <field name="course_id"/>
                                 <field name="name"/>
                                 <field name="instructor_id"/>
+                                <field name="country_id"/>
                             </group>
                             <group string="Schedule">
                                 <field name="start_date"/>
                                 <field name="duration"/>
                                 <field name="seats"/>
+<!--                                <field name="attendee_ids" widget="many2many_tags"/>-->
                             </group>
                         </group>
+                        <label for="attendee_ids"/>
+                        <field name="attendee_ids" domain="[('country_id', '=', country_id)]"/>
                     </sheet>
                 </form>
         </field>
