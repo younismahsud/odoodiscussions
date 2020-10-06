@@ -92,6 +92,7 @@
                                 <field name="name"/>
                                 <field name="instructor_id"/>
                                 <field name="country_id"/>
+                                <field name="active"/>
                             </group>
                             <group string="Schedule">
                                 <field name="start_date"/>
