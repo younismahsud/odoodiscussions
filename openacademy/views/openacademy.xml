@@ -7,7 +7,7 @@
         <field name="priority" eval="1"/>
         <field name="arch" type="xml">
             <tree string="Courses">
-                <field name="name"/>
+                <field name="course_name"/>
                 <field name="description"/>
                 <field name="responsible_id"/>
             </tree>
@@ -21,8 +21,8 @@
             <form string="Course">
                 <sheet>
                     <div class="oe_title">
-                        <label for="name" style="color: red" class="oe_edit_only" string="Course name" />
-                        <h3><field name="name" style="background-color: yellow;" /></h3>
+                        <label for="course_name" style="color: red" class="oe_edit_only" string="Course name" />
+                        <h3><field name="course_name" style="background-color: yellow;" /></h3>
                     </div>
                     <group>
                         <group>
@@ -56,7 +56,7 @@
         <field name="model">openacademy.course</field>
         <field name="arch" type="xml">
             <search>
-                <field name="name"/>
+                <field name="course_name"/>
                 <field name="description"/>
             </search>
         </field>

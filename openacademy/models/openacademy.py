@@ -6,10 +6,34 @@ class Course(models.Model):
     _name = 'openacademy.course'
     _description = 'Courses'
 
-    name = fields.Char(string='Course Name', required=True)
+    course_name = fields.Char(string='Course Name', required=True)
     description = fields.Text('Description', help='Add course description here...')
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
+
+    def copy(self, default=None):
+        default = dict(default or {})
+
+        copied_count = self.search_count(
+            [('course_name', '=like', u"Copy of {}%".format(self.course_name))])
+        if not copied_count:
+            new_name = u"Copy of {}".format(self.course_name)
+        else:
+            new_name = u"Copy of {} ({})".format(self.course_name, copied_count)
+
+        default['course_name'] = new_name
+        return super(Course, self).copy(default)
+
+
+    _sql_constraints = [
+        ('name_description_check',
+         'check (course_name != description)',
+         'The course name and description can not be same.'),
+
+        ('course_name_unique',
+         'unique(course_name)',
+         'Course name should be unique'),
+    ]
 
 
 class Session(models.Model):
