@@ -58,13 +58,22 @@
             <search>
                 <field name="course_name"/>
                 <field name="description"/>
+                <filter name="my_courses" string="My Courses"
+                            domain="[('responsible_id', '=', uid)]"/>
+                <group string="Group By">
+                    <filter name="by_responsible" string="Responsible"
+                                context="{'group_by': 'responsible_id'}"/>
+                </group>
+
             </search>
         </field>
     </record>
 
+
     <record model="ir.actions.act_window" id="course_list_action">
         <field name="name">Courses</field>
         <field name="res_model">openacademy.course</field>
+        <field name="context" eval="{'search_default_by_responsible': 1, 'search_default_my_courses': 1}"/>
         <field name="view_mode">tree,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">Create the first course
@@ -112,7 +121,7 @@
         <field name="name">session.tree</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
-            <tree string="Session Tree" editable="bottom" decoration-bf="duration&lt;5" decoration-it="duration&gt;15">
+            <tree string="Session Tree" decoration-bf="duration&lt;5" decoration-it="duration&gt;15">
                 <field name="name"/>
                 <field name="course_id"/>
                 <field name="start_date"/>
@@ -123,11 +132,20 @@
         </field>
     </record>
 
+    <record model="ir.ui.view" id="session_calendar_view">
+        <field name="name">session.calendar</field>
+        <field name="model">openacademy.session</field>
+        <field name="arch" type="xml">
+            <calendar string="Session Calendar" date_start="start_date" date_stop="end_date" color="instructor_id">
+                <field name="name"/>
+            </calendar>
+        </field>
+    </record>
 
     <record model="ir.actions.act_window" id="session_list_action">
         <field name="name">Sessions</field>
         <field name="res_model">openacademy.session</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">calendar,tree,form</field>
     </record>
 
     <menuitem id="session_menu" name="Sessions"
