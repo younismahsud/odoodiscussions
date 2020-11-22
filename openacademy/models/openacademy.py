@@ -6,6 +6,7 @@ from datetime import timedelta
 class Course(models.Model):
     _name = 'openacademy.course'
     _description = 'Courses'
+    _rec_name = 'course_name'
 
     course_name = fields.Char(string='Course Name', required=True)
     description = fields.Text('Description', help='Add course description here...')
@@ -53,6 +54,7 @@ class Session(models.Model):
     active = fields.Boolean(string='Active', default=True)
     attendees_count = fields.Integer(
         string="Attendees count", compute='_get_attendees_count', store=True)
+    color = fields.Integer()
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
