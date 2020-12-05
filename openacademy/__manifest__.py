@@ -24,6 +24,8 @@
 
     # always loaded
     'data': [
+        'security/res_groups.xml',
+        'security/ir.model.access.csv',
         'views/openacademy.xml',
         'views/res_partner.xml',
     ],

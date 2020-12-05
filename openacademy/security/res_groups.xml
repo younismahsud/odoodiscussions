@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+    <data noupdate="1">
+
+        <record id="res_groups_read_session" model="res.groups">
+            <field name="name">Read sessions</field>
+        </record>
+
+    </data>
+</odoo>
