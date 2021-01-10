@@ -1,4 +1,4 @@
-from odoo import models, fields, api
+from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
 
@@ -8,7 +8,7 @@ class Course(models.Model):
     _description = 'Courses'
     _rec_name = 'course_name'
 
-    course_name = fields.Char(string='Course Name', required=True)
+    course_name = fields.Char(string='Course Name', required=True, translate=True)
     description = fields.Text('Description', help='Add course description here...')
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
@@ -17,7 +17,7 @@ class Course(models.Model):
         default = dict(default or {})
 
         copied_count = self.search_count(
-            [('course_name', '=like', u"Copy of {}%".format(self.course_name))])
+            [(_('course_name', '=like', u"Copy of {}%").format(self.course_name))])
         if not copied_count:
             new_name = u"Copy of {}".format(self.course_name)
         else:
