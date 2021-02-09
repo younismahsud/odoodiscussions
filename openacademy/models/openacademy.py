@@ -5,12 +5,13 @@ from datetime import timedelta
 
 class Course(models.Model):
     _name = 'openacademy.course'
+    _inherit = ['mail.thread', 'mail.activity.mixin']
     _description = 'Courses'
     _rec_name = 'course_name'
 
-    course_name = fields.Char(string='Course Name', required=True, translate=True)
+    course_name = fields.Char(string='Course Name', required=True, translate=True, tracking=True)
     description = fields.Text('Description', help='Add course description here...')
-    responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True)
+    responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True, tracking=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
 
     def copy(self, default=None):
