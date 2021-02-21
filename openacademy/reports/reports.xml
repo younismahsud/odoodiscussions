@@ -8,8 +8,6 @@
         name="openacademy.report_session_view"
         file="openacademy.report_session"
         report_type="qweb-pdf"
-        attachment_use="True"
-        attachment="('TEST'+(object.name or '').replace('/','')+'.pdf')"
     />
 
     <template id="report_session_view">
