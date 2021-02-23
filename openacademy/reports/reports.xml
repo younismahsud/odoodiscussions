@@ -13,7 +13,8 @@
     <template id="report_session_view">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
-                <t t-call="web.external_layout">
+                <div class="article o_report_layout_standard" t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id">
+                    <t t-call="openacademy.custom_session_header_footer"/>
                     <div class="page">
                         <h2 t-field="doc.name"/>
                         <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
@@ -24,7 +25,7 @@
                             </t>
                         </ul>
                     </div>
-                </t>
+                </div>
             </t>
         </t>
     </template>

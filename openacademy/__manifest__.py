@@ -28,8 +28,8 @@
         'security/ir.model.access.csv',
         'views/openacademy.xml',
         'views/res_partner.xml',
+        'reports/custom_header_footer.xml',
         'reports/reports.xml',
-        'reports/header_footer.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
