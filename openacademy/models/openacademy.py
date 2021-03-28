@@ -13,6 +13,20 @@ class Course(models.Model):
     description = fields.Text('Description', help='Add course description here...')
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True, tracking=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
+    state = fields.Selection([('draft', 'Draft'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
+                              ], string='Status', readonly=True, tracking=True, default='draft', copy=False)
+
+    def action_validate(self):
+        for record in self:
+            record.write({'state': 'in_progress'})
+
+    def action_completed(self):
+        for record in self:
+            record.write({'state': 'completed'})
+
+    def action_cancel(self):
+        for record in self:
+            record.write({'state': 'cancel'})
 
     def copy(self, default=None):
         default = dict(default or {})

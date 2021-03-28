@@ -29,6 +29,7 @@
         'views/openacademy.xml',
         'views/res_partner.xml',
         'reports/custom_header_footer.xml',
+        'reports/paperformat.xml',
         'reports/reports.xml',
     ],
     # only loaded in demonstration mode

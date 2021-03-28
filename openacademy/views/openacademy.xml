@@ -19,23 +19,29 @@
         <field name="model">openacademy.course</field>
         <field name="arch" type="xml">
             <form string="Course">
+                <header>
+                    <button name="action_validate" type="object" class="oe_highlight" string="Validate" states="draft"/>
+                    <button name="action_completed" groups="openacademy.group_manager_openacademy" type="object" class="oe_highlight" string="Completed" states="in_progress"/>
+                    <button name="action_cancel" type="object" string="Cancel" states="draft,in_progress"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
+                </header>
                 <sheet>
                     <div class="oe_title">
                         <label for="course_name" style="color: red" class="oe_edit_only" string="Course name" />
-                        <h3><field name="course_name" style="background-color: yellow;" /></h3>
+                        <h3><field name="course_name" attrs="{'readonly': [('state', '!=', 'draft')]}" style="background-color: yellow;" /></h3>
                     </div>
                     <group>
                         <group>
-                            <field name="responsible_id"/>
+                            <field name="responsible_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                     </group>
                     <separator string="General" colspan="2" />
                     <group colspan="2" col="2">
-                        <field name="description" placeholder="Course description..." />
+                        <field name="description" placeholder="Course description..." attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                     </group>
                     <notebook>
                         <page string="Sessions">
-                            <field name="session_ids">
+                            <field name="session_ids" attrs="{'readonly': [('state', '!=', 'draft')]}">
                                 <tree editable="bottom">
                                     <field name="name"/>
                                     <field name="start_date"/>
