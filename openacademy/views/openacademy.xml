@@ -26,12 +26,20 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
                 </header>
                 <sheet>
+                    <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger"
+                            attrs="{'invisible': [('state', '!=', 'cancel')]}"/>
+                    <widget name="web_ribbon" title="Completed" bg_color="bg-success"
+                            attrs="{'invisible': [('state', '!=', 'completed')]}"/>
                     <div class="oe_title">
-                        <label for="course_name" style="color: red" class="oe_edit_only" string="Course name" />
-                        <h3><field name="course_name" attrs="{'readonly': [('state', '!=', 'draft')]}" style="background-color: yellow;" /></h3>
+                        <h2><field name="name"/></h2>
                     </div>
+<!--                    <div class="oe_title">-->
+<!--                        <label for="course_name" style="color: red" class="oe_edit_only" string="Course name" />-->
+<!--                        <h3><field name="course_name" attrs="{'readonly': [('state', '!=', 'draft')]}" style="background-color: yellow;" /></h3>-->
+<!--                    </div>-->
                     <group>
                         <group>
+                            <field name="course_name" attrs="{'readonly': [('state', '!=', 'draft')]}" style="background-color: yellow;" />
                             <field name="responsible_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                     </group>
@@ -105,6 +113,9 @@
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
             <form string="Session Form">
+                <header>
+                    <button name="action_send_session_by_email" type="object" class="oe_highlight" string="Send Email"/>
+                </header>
                     <sheet>
                         <group>
                             <group string="General">

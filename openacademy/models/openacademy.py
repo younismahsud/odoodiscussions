@@ -1,6 +1,7 @@
 from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
+from odoo.tools.misc import get_lang
 
 
 class Course(models.Model):
@@ -9,12 +10,19 @@ class Course(models.Model):
     _description = 'Courses'
     _rec_name = 'course_name'
 
+    name = fields.Char(string="Course Number", required=True, index=True, copy=False, readonly=True, default=_('New'))
     course_name = fields.Char(string='Course Name', required=True, translate=True, tracking=True)
     description = fields.Text('Description', help='Add course description here...')
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True, tracking=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
     state = fields.Selection([('draft', 'Draft'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
                               ], string='Status', readonly=True, tracking=True, default='draft', copy=False)
+
+    @api.model
+    def create(self, vals):
+        if vals.get('name', _('New')) == _('New'):
+            vals['name'] = self.env['ir.sequence'].next_by_code('openacademy.course')
+        return super(Course, self).create(vals)
 
     def action_validate(self):
         for record in self:
@@ -70,6 +78,26 @@ class Session(models.Model):
     attendees_count = fields.Integer(
         string="Attendees count", compute='_get_attendees_count', store=True)
     color = fields.Integer()
+    email_sent = fields.Boolean('Email Sent', default=False)
+
+    def action_send_session_by_email_cron(self):
+        session_ids = self.env['openacademy.session'].search([('email_sent', '=', False)])
+        for session in session_ids:
+            if session.email_sent is False:
+                session.action_send_session_by_email()
+                session.email_sent = True
+
+    def action_send_session_by_email(self):
+        for attendee in self.attendee_ids:
+            ctx = {}
+            email_list = [attendee.email]
+            if email_list:
+                ctx['email_to'] = ','.join([email for email in email_list if email])
+                ctx['email_from'] = self.env.user.company_id.email
+                ctx['send_email'] = True
+                ctx['attendee'] = attendee.name
+                template = self.env.ref('openacademy.email_template_openacademy_session')
+                template.with_context(ctx).send_mail(self.id, force_send=True, raise_exception=False)
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):

@@ -31,6 +31,9 @@
         'reports/custom_header_footer.xml',
         'reports/paperformat.xml',
         'reports/reports.xml',
+        'data/email_template.xml',
+        'data/ir_cron.xml',
+        'data/ir_sequence.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
