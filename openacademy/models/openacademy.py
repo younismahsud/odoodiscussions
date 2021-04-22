@@ -17,11 +17,13 @@ class Course(models.Model):
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
     state = fields.Selection([('draft', 'Draft'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
                               ], string='Status', readonly=True, tracking=True, default='draft', copy=False)
+    course_date = fields.Date('Course date', required=True, default=fields.Date.today())
 
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
-            vals['name'] = self.env['ir.sequence'].next_by_code('openacademy.course')
+            course_date = vals.get('course_date')
+            vals['name'] = self.env['ir.sequence'].next_by_code('openacademy.course', sequence_date=course_date)
         return super(Course, self).create(vals)
 
     def action_validate(self):

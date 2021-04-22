@@ -42,6 +42,9 @@
                             <field name="course_name" attrs="{'readonly': [('state', '!=', 'draft')]}" style="background-color: yellow;" />
                             <field name="responsible_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
+                        <group>
+                            <field name="course_date"/>
+                        </group>
                     </group>
                     <separator string="General" colspan="2" />
                     <group colspan="2" col="2">
