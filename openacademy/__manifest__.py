@@ -20,7 +20,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail'],
+    'depends': ['base', 'mail', 'sale'],
 
     # always loaded
     'data': [
@@ -34,6 +34,7 @@
         'data/email_template.xml',
         'data/ir_cron.xml',
         'data/ir_sequence.xml',
+        'reports/sale_qweb_template.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

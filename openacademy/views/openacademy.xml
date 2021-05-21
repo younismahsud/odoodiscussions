@@ -86,7 +86,10 @@
                     <filter name="by_responsible" string="Responsible"
                                 context="{'group_by': 'responsible_id'}"/>
                 </group>
-
+                <searchpanel>
+                    <field name="state"/>
+                    <field name="responsible_id" icon="fa-users"/>
+                </searchpanel>
             </search>
         </field>
     </record>
