@@ -82,6 +82,9 @@ class Session(models.Model):
     color = fields.Integer()
     email_sent = fields.Boolean('Email Sent', default=False)
 
+    def number_of_attendees(self):
+        return len(self.attendee_ids)
+
     def action_send_session_by_email_cron(self):
         session_ids = self.env['openacademy.session'].search([('email_sent', '=', False)])
         for session in session_ids:

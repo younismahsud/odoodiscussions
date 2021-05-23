@@ -35,6 +35,7 @@
                         </div>
                         <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
                         <h3>Attendees:</h3>
+                        <h4>No. of attendees: <t t-esc="doc.number_of_attendees()"/></h4>
                         <table class="styled-table">
                             <thead>
                                 <tr>
