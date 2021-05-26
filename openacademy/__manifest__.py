@@ -35,6 +35,7 @@
         'data/ir_cron.xml',
         'data/ir_sequence.xml',
         'reports/sale_qweb_template.xml',
+        'views/res_config_settings.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
