@@ -66,11 +66,21 @@ class Session(models.Model):
     _name = 'openacademy.session'
     _description = "OpenAcademy Sessions"
 
+    def get_default_duration(self):
+        ICP = self.env['ir.config_parameter'].sudo()
+        default_duration = ICP.get_param('openacademy.session_duration')
+        return default_duration
+
+    def get_default_seats(self):
+        ICP = self.env['ir.config_parameter'].sudo()
+        default_seats = ICP.get_param('openacademy.session_allowed_seats')
+        return default_seats
+
     name = fields.Char(required=True)
     start_date = fields.Date(default=fields.date.today())
-    duration = fields.Float(digits=(6, 2), help="Duration in days")
+    duration = fields.Float(digits=(6, 2), help="Duration in days", default=get_default_duration)
     end_date = fields.Date(string="End Date", store=True, compute='_get_end_date', inverse='_set_end_date')
-    seats = fields.Integer(string="Number of seats")
+    seats = fields.Integer(string="Number of seats", default=get_default_seats)
     instructor_id = fields.Many2one('res.partner', string="Instructor", domain=[('country_id', '=', 'Belgium')])
     country_id = fields.Many2one('res.country', related='instructor_id.country_id')
     course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True)
