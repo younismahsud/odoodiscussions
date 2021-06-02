@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <report
+        id="action_openacademy_pdf_report"
+        model="openacademy.pdf.report"
+        string="PDF Report"
+        name="openacademy.openacademy_pdf_template"
+        file="openacademy.openacademy_pdf_template"
+        report_type="qweb-pdf"
+    />
+
+    <template id="openacademy_pdf_template">
+        <t t-call="web.html_container">
+            <t t-call="web.internal_layout">
+                <div class="page">
+                    <div class="oe_structure"/>
+                    <h3>
+                        <center>Open Academy Courses detail</center>
+                    </h3>
+                    <br/>
+                    <br/>
+                    <div class="row">
+                        <div class="col-6">
+                            Date from:
+                            <span t-esc="datas['date_from']"/>
+                        </div>
+                        <div class="col-6">
+                            Courses:
+                            <span t-esc="datas['courses']"/>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-6">
+                            Date to:
+                            <span t-esc="datas['date_to']"/>
+                        </div>
+                        <div class="col-6">
+                            Responsible:
+                            <span t-esc="datas['responsbile']"/>
+                        </div>
+                    </div>
+                    <br/>
+
+                    <table class="table table-condensed table-bordered">
+                        <thead>
+                            <tr>
+                                <th>Session Name</th>
+                                <th>Start date</th>
+                                <th>Duration</th>
+                                <th>No. of Seats</th>
+                                <th>Instructor</th>
+                                <th>Total Attendees</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <t t-as="course" t-foreach="docs">
+                                <tr>
+                                    <td colspan="6">
+                                        <center>
+                                            <span t-field="course.course_name"/>
+                                        </center>
+                                    </td>
+                                </tr>
+                                <tr t-as="session" t-foreach="course.session_ids">
+                                    <td>
+                                        <span t-field="session.name"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="session.start_date"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="session.duration"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-field="session.seats"/>
+                                    </td>
+                                    <td>
+                                        <span t-field="session.instructor_id"/>
+                                    </td>
+                                    <td class="text-right">
+                                        <span t-esc="session.number_of_attendees()"/>
+                                    </td>
+                                </tr>
+                            </t>
+                        </tbody>
+                    </table>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>

@@ -36,6 +36,8 @@
         'data/ir_sequence.xml',
         'reports/sale_qweb_template.xml',
         'views/res_config_settings.xml',
+        'wizard/report_wizard_view.xml',
+        'reports/openacademy_pdf_report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
