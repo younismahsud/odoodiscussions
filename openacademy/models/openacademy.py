@@ -2,6 +2,9 @@ from odoo import models, fields, api, _
 from odoo.exceptions import ValidationError
 from datetime import timedelta
 from odoo.tools.misc import get_lang
+import logging
+
+logger = logging.getLogger("*___OpenAcademy___*")
 
 
 class Course(models.Model):
@@ -28,6 +31,7 @@ class Course(models.Model):
 
     def action_validate(self):
         for record in self:
+            logger.info(f"Course {record.course_name} state moved to In progress by {self.env.user.name}")
             record.write({'state': 'in_progress'})
 
     def action_completed(self):
@@ -36,6 +40,7 @@ class Course(models.Model):
 
     def action_cancel(self):
         for record in self:
+            logger.error(f"Course {record.course_name} state moved to Cancelled by {self.env.user.name}")
             record.write({'state': 'cancel'})
 
     def copy(self, default=None):
