@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <report
+            id="action_openacademy_xlsx_report"
+            model="openacademy.pdf.report"
+            string="Generate XLSX Report"
+            report_type="xlsx"
+            name="openacademy.openacademy_xlsx_report"
+            file="openacademy_xlsx_report"
+            attachment_use="False"
+    />
+
+</odoo>
