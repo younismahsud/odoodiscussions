@@ -23,7 +23,7 @@
                     <button name="action_validate" type="object" class="oe_highlight" string="Validate" states="draft"/>
                     <button name="action_completed" groups="openacademy.group_manager_openacademy" type="object" class="oe_highlight" string="Completed" states="in_progress"/>
                     <button name="action_cancel" type="object" string="Cancel" states="draft,in_progress"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed" options="{'clickable': 1}''"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger"

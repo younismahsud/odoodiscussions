@@ -19,7 +19,7 @@ class Course(models.Model):
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True, tracking=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
     state = fields.Selection([('draft', 'Draft'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
-                              ], string='Status', readonly=True, tracking=True, default='draft', copy=False)
+                              ], string='Status', readonly=False, tracking=True, default='draft', copy=False)
     course_date = fields.Date('Course date', required=True, default=fields.Date.today())
 
     @api.model
