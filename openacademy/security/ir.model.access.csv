@@ -4,3 +4,4 @@ session_manager,session manager,model_openacademy_session,group_manager_openacad
 course_read_all,course all,model_openacademy_course,,1,0,0,0
 session_read_all,session all,model_openacademy_session,,1,0,0,0
 access_openacademy_report,access_open_academy_report,model_openacademy_pdf_report,,1,1,1,1
+access_product.sale.analysis,product.sale.analysis,model_product_sale_analysis,,1,1,1,1
