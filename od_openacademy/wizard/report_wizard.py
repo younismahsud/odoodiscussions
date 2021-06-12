@@ -12,7 +12,7 @@ class OpenAcademyPDFReport(models.TransientModel):
     # generate PDF report
     def action_print_report(self):
         data = {'date_from': self.date_from, 'date_to': self.date_to, 'course_ids': self.course_ids.ids, 'responsible_id': self.responsible_id.id}
-        return self.env.ref('openacademy.action_openacademy_pdf_report').report_action(self, data=data)
+        return self.env.ref('od_openacademy.action_openacademy_pdf_report').report_action(self, data=data)
 
     # Generate xlsx report
     def action_generate_xlsx_report(self):
@@ -22,11 +22,11 @@ class OpenAcademyPDFReport(models.TransientModel):
             'course_ids': self.course_ids.ids,
             'responsible_id': self.responsible_id.id
         }
-        return self.env.ref('openacademy.action_openacademy_xlsx_report').report_action(self, data=data)
+        return self.env.ref('od_openacademy.action_openacademy_xlsx_report').report_action(self, data=data)
 
 
 class OpenAcademyReportPDF(models.AbstractModel):
-    _name = 'report.openacademy.openacademy_pdf_template'
+    _name = 'report.od_openacademy.openacademy_pdf_template'
 
     def _get_report_values(self, docids, data=None):
         domain = [('state', '!=', 'cancel')]
@@ -52,7 +52,7 @@ class OpenAcademyReportPDF(models.AbstractModel):
 
 
 class OpenAcademyXlsxReport(models.AbstractModel):
-    _name = 'report.openacademy.openacademy_xlsx_report'
+    _name = 'report.od_openacademy.openacademy_xlsx_report'
     _inherit = 'report.report_xlsx.abstract'
 
     def generate_xlsx_report(self, workbook, data, partners):

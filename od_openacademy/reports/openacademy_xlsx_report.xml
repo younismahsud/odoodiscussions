@@ -6,7 +6,7 @@
             model="openacademy.pdf.report"
             string="Generate XLSX Report"
             report_type="xlsx"
-            name="openacademy.openacademy_xlsx_report"
+            name="od_openacademy.openacademy_xlsx_report"
             file="openacademy_xlsx_report"
             attachment_use="False"
     />

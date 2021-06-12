@@ -5,8 +5,8 @@
         id="action_openacademy_pdf_report"
         model="openacademy.pdf.report"
         string="PDF Report"
-        name="openacademy.openacademy_pdf_template"
-        file="openacademy.openacademy_pdf_template"
+        name="od_openacademy.openacademy_pdf_template"
+        file="od_openacademy.openacademy_pdf_template"
         report_type="qweb-pdf"
     />
 

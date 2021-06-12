@@ -3,7 +3,7 @@
 
 <!--    <template id="assets_backend_table_design_session" name="openacademy assets" inherit_id="web.assets_backend">-->
 <!--       <xpath expr="." position="inside">-->
-<!--          <link rel="stylesheet" href="/openacademy/static/src/css/my_style.css"/>-->
+<!--          <link rel="stylesheet" href="/od_openacademy/static/src/css/my_style.css"/>-->
 <!--       </xpath>-->
 <!--    </template>-->
 
@@ -11,19 +11,19 @@
         id="report_session"
         model="openacademy.session"
         string="Session Report"
-        name="openacademy.report_session_view"
-        file="openacademy.report_session"
+        name="od_openacademy.report_session_view"
+        file="od_openacademy.report_session"
         report_type="qweb-pdf"
-        paperformat="openacademy.paperformat_session_report"
+        paperformat="od_openacademy.paperformat_session_report"
     />
 
     <template id="report_session_view">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="doc">
                 <div class="article o_report_layout_standard" t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id">
-<!--                    <t t-call="openacademy.custom_session_header_footer"/>-->
-<!--                    <link href="/openacademy/static/src/css/my_style.css" rel="stylesheet" type="text/less"/>-->
-                    <link rel="stylesheet" href="/openacademy/static/src/css/my_style.css"/>
+<!--                    <t t-call="od_openacademy.custom_session_header_footer"/>-->
+<!--                    <link href="/od_openacademy/static/src/css/my_style.css" rel="stylesheet" type="text/less"/>-->
+                    <link rel="stylesheet" href="/od_openacademy/static/src/css/my_style.css"/>
                     <div class="page">
                         <div class="row">
                             <div class="col-6">

@@ -21,7 +21,7 @@
             <form string="Course">
                 <header>
                     <button name="action_validate" type="object" class="oe_highlight" string="Validate" states="draft"/>
-                    <button name="action_completed" groups="openacademy.group_manager_openacademy" type="object" class="oe_highlight" string="Completed" states="in_progress"/>
+                    <button name="action_completed" groups="od_openacademy.group_manager_openacademy" type="object" class="oe_highlight" string="Completed" states="in_progress"/>
                     <button name="action_cancel" type="object" string="Cancel" states="draft,in_progress"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed" options="{'clickable': 1}''"/>
                 </header>
@@ -250,8 +250,7 @@
             <footer>
                 <button name="subscribe" type="object"
                         string="Subscribe" class="oe_highlight"/>
-                or
-                <button special="cancel" string="Cancel"/>
+                <button special="cancel" string="Cancel" class="btn-secondary"/>
             </footer>
         </field>
     </record>

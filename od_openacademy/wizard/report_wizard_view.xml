@@ -41,6 +41,6 @@
               name="PDF Report"
               sequence="3"
               action="openacademy_pdf_report"
-              parent="openacademy.open_academy_reporting"/>
+              parent="od_openacademy.open_academy_reporting"/>
 
 </odoo>

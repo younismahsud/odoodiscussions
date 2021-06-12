@@ -73,12 +73,12 @@ class Session(models.Model):
 
     def get_default_duration(self):
         ICP = self.env['ir.config_parameter'].sudo()
-        default_duration = ICP.get_param('openacademy.session_duration')
+        default_duration = ICP.get_param('od_openacademy.session_duration')
         return default_duration
 
     def get_default_seats(self):
         ICP = self.env['ir.config_parameter'].sudo()
-        default_seats = ICP.get_param('openacademy.session_allowed_seats')
+        default_seats = ICP.get_param('od_openacademy.session_allowed_seats')
         return default_seats
 
     name = fields.Char(required=True)
@@ -117,7 +117,7 @@ class Session(models.Model):
                 ctx['email_from'] = self.env.user.company_id.email
                 ctx['send_email'] = True
                 ctx['attendee'] = attendee.name
-                template = self.env.ref('openacademy.email_template_openacademy_session')
+                template = self.env.ref('od_openacademy.email_template_openacademy_session')
                 template.with_context(ctx).send_mail(self.id, force_send=True, raise_exception=False)
 
     @api.depends('attendee_ids')

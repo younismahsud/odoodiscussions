@@ -26,6 +26,6 @@
               name="Product Sale Analysis"
               sequence="4"
               action="action_product_sale_analysis"
-              parent="openacademy.open_academy_reporting"/>
+              parent="od_openacademy.open_academy_reporting"/>
 
 </odoo>
