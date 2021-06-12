@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record model="ir.actions.act_window" id="action_product_sale_analysis">
+        <field name="name">Sales analysis</field>
+        <field name="res_model">product.sale.analysis</field>
+        <field name="view_mode">pivot</field>
+    </record>
+
+    <record id="product_sales_analysis_pivot_view" model="ir.ui.view">
+         <field name="name">product.sales.analysis.pivot</field>
+         <field name="model">product.sale.analysis</field>
+         <field name="arch" type="xml">
+             <pivot string="Sales Analysis" disable_linking="True">
+                 <field name="product_id" type="row"/>
+                 <field name="date" type="row"/>
+                 <field name="type" type="col"/>
+                 <field name="quantity" type="measure"/>
+                 <field name="untaxed_total" type="measure"/>
+                 <field name="total" type="measure"/>
+             </pivot>
+         </field>
+    </record>
+
+    <menuitem id="open_academy_product_sale_analysis"
+              name="Product Sale Analysis"
+              sequence="4"
+              action="action_product_sale_analysis"
+              parent="openacademy.open_academy_reporting"/>
+
+</odoo>

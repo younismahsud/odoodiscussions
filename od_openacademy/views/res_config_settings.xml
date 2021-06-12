@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="res_config_settings_view_form_openacademy" model="ir.ui.view">
+        <field name="name">res.config.settings.view.form.inherit.openacademy</field>
+        <field name="model">res.config.settings</field>
+        <field name="priority" eval="10"/>
+        <field name="inherit_id" ref="base.res_config_settings_view_form" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[hasclass('settings')]" position="inside">
+                <div class="app_settings_block" data-string="Open Academy" string="Open Academy" data-key="openacademy">
+                    <h2>Sessions Settings</h2>
+                    <div class="row mt16 o_settings_container">
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="session_allowed_seats"/>
+                                <field name="session_allowed_seats"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
+                                <label for="session_duration"/>
+                                <field name="session_duration"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="action_openacademy_config_settings" model="ir.actions.act_window">
+        <field name="name">Settings</field>
+        <field name="type">ir.actions.act_window</field>
+        <field name="res_model">res.config.settings</field>
+        <field name="view_id" ref="res_config_settings_view_form_openacademy"/>
+        <field name="view_mode">form</field>
+        <field name="target">inline</field>
+        <field name="context">{'module' : 'openacademy', 'bin_size': False}</field>
+    </record>
+
+    <menuitem id="menu_openacademy_config_settings"
+              name="Configuration"
+              parent="main_openacademy_menu"
+              sequence="100"/>
+
+    <menuitem id="menu_openacademy_general_settings"
+        name="Settings"
+        parent="menu_openacademy_config_settings"
+        sequence="0"
+        action="action_openacademy_config_settings"
+        groups="base.group_system"/>
+
+</odoo>

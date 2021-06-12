@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="custom_session_header_footer">
+        <t t-set="company" t-value="user.company_id"/>
+        <div class="header">
+            <div class="row" style="font-family: 'Trebuchet MS', sans-serif;">
+                <div class="col-5 mb4">
+                    <div t-field="company.partner_id"
+                        t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'
+                    />
+                </div>
+                <div class="col-2 mb4">
+                    <img t-if="company.logo" t-att-src="image_data_uri(company.logo)" style="max-height: 80px;" alt="Logo"/>
+                </div>
+                <div class="col-5 mb4 text-right">
+                    <div t-if="report_type == 'pdf'" class="text-muted">
+                        Page: <li class="list-inline-item"><strong><span class="page"/> / <span class="topage"/></strong></li>
+                    </div>
+                    <div>
+                        Print date: <span t-esc="context_timestamp(datetime.datetime.now()).strftime('%Y-%m-%d %H:%M')"/>
+                    </div>
+                </div>
+            </div>
+            <div t-if="company.logo or company.report_header" class="row zero_min_height">
+                <div class="col-12">
+                    <div style="border-bottom: 1px solid black;"/>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="text-center" style="border-top: 1px solid black;">
+                <ul class="list-inline mb4 text-nowrap">
+                    <li t-if="company.phone" class="list-inline-item d-inline">Phone: <span class="o_force_ltr" t-field="company.phone"/></li>
+                    <li t-if="company.email" class="list-inline-item d-inline">Email: <span t-field="company.email"/></li>
+                    <li t-if="company.website" class="list-inline-item d-inline">Web: <span t-field="company.website"/></li>
+                    <li t-if="company.vat" class="list-inline-item d-inline"><t t-esc="company.country_id.vat_label or 'Tax ID'"/>: <span t-field="company.vat"/></li>
+                </ul>
+            </div>
+        </div>
+    </template>
+
+</odoo>

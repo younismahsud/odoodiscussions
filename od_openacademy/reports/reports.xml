@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+<!--    <template id="assets_backend_table_design_session" name="openacademy assets" inherit_id="web.assets_backend">-->
+<!--       <xpath expr="." position="inside">-->
+<!--          <link rel="stylesheet" href="/openacademy/static/src/css/my_style.css"/>-->
+<!--       </xpath>-->
+<!--    </template>-->
+
+    <report
+        id="report_session"
+        model="openacademy.session"
+        string="Session Report"
+        name="openacademy.report_session_view"
+        file="openacademy.report_session"
+        report_type="qweb-pdf"
+        paperformat="openacademy.paperformat_session_report"
+    />
+
+    <template id="report_session_view">
+        <t t-call="web.html_container">
+            <t t-foreach="docs" t-as="doc">
+                <div class="article o_report_layout_standard" t-att-data-oe-model="doc and doc._name" t-att-data-oe-id="doc and doc.id">
+<!--                    <t t-call="openacademy.custom_session_header_footer"/>-->
+<!--                    <link href="/openacademy/static/src/css/my_style.css" rel="stylesheet" type="text/less"/>-->
+                    <link rel="stylesheet" href="/openacademy/static/src/css/my_style.css"/>
+                    <div class="page">
+                        <div class="row">
+                            <div class="col-6">
+                                <h2 t-field="doc.name"/>
+                            </div>
+                            <div class="col-6">
+                                <img class="float-right" t-att-src="'/report/barcode/?type=%s&amp;value=%s&amp;width=%s&amp;height=%s'%('QR', doc.name, 200, 200)"/>
+                            </div>
+                        </div>
+                        <p>From <span t-field="doc.start_date"/> to <span t-field="doc.end_date"/></p>
+                        <h3>Attendees:</h3>
+                        <h4>No. of attendees: <t t-esc="doc.number_of_attendees()"/></h4>
+                        <table class="styled-table">
+                            <thead>
+                                <tr>
+                                    <th>Name</th>
+                                    <th>Email</th>
+                                    <th>Phone</th>
+                                    <th>Country</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr t-foreach="doc.attendee_ids" t-as="attendee">
+                                    <td><span t-field="attendee.name"/></td>
+                                    <td><span t-field="attendee.email"/></td>
+                                    <td><span t-field="attendee.phone"/></td>
+                                    <td><span t-field="attendee.country_id.name"/></td>
+                                </tr>
+                            </tbody>
+                        </table>
+<!--                        <ul>-->
+<!--                            <t t-foreach="doc.attendee_ids" t-as="attendee">-->
+<!--                                <li><span t-field="attendee.name"/></li>-->
+<!--                            </t>-->
+<!--                        </ul>-->
+                    </div>
+                </div>
+            </t>
+        </t>
+    </template>
+
+</odoo>
