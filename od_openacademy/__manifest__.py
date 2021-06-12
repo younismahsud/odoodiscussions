@@ -44,6 +44,5 @@
     # only loaded in demonstration mode
     'demo': [
     ],
-    'license': 'AGPL-3',
     'images': ['static/description/icon.png'],
 }
