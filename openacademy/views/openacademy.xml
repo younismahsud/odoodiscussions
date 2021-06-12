@@ -123,6 +123,7 @@
                     <button name="action_send_session_by_email" type="object" class="oe_highlight" string="Send Email"/>
                 </header>
                     <sheet>
+                        <field name="image_1920" widget="image" class="oe_avatar" options="{'preview_image': 'image_1920', 'zoom': true, 'zoom_delay': 1000}"/>
                         <group>
                             <group string="General">
                                 <field name="course_id"/>

@@ -96,6 +96,7 @@ class Session(models.Model):
         string="Attendees count", compute='_get_attendees_count', store=True)
     color = fields.Integer()
     email_sent = fields.Boolean('Email Sent', default=False)
+    image_1920 = fields.Image("Image")
 
     def number_of_attendees(self):
         return len(self.attendee_ids)
