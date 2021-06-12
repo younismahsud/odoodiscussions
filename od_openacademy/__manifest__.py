@@ -1,5 +1,5 @@
 {
-    'name': "Open Academy",
+    'name': "Odoo 13.0 technical course",
 
     'summary': """Manage trainings""",
 
