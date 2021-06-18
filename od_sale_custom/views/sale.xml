@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="view_order_form_sale_history_view" model="ir.ui.view">
+        <field name="name">sale.order.form.sale.history.view</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
+                <button name="open_sale_order_lines" string="Sales history" type="object" class="oe_inline">
+                    Sales history
+                </button>
+            </xpath>
+        </field>
+    </record>
+
+    <record id="view_order_line_tree2" model="ir.ui.view">
+        <field name="name">sale.order.line.tree.2</field>
+        <field name="model">sale.order.line</field>
+        <field name="arch" type="xml">
+            <tree string="Sales Order Lines" create="false">
+                <field name="order_id"/>
+                <field name="order_partner_id"/>
+                <field name="name"/>
+                <field name="price_unit"/>
+                <field name="product_uom_qty" string="Qty"/>
+                <field name="qty_delivered" optional="hide"/>
+                <field name="qty_invoiced" optional="hide"/>
+                <field name="qty_to_invoice" optional="hide"/>
+                <field name="product_uom" string="Unit of Measure" groups="uom.group_uom"/>
+                <field name="price_subtotal" sum="Total" widget="monetary"/>
+            </tree>
+        </field>
+    </record>
+
+</odoo>
