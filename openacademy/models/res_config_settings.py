@@ -6,6 +6,7 @@ class ResConfigSettings(models.TransientModel):
 
     session_allowed_seats = fields.Integer('Default allowed seats')
     session_duration = fields.Float('Default duration')
+    group_stock_multi_openacademy = fields.Boolean('Multi-Warehouses', default=True, implied_group='openacademy.group_stock_multi_openacademy')
 
     @api.model
     def set_values(self):

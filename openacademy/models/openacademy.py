@@ -22,6 +22,25 @@ class Course(models.Model):
                               ], string='Status', readonly=False, tracking=True, default='draft', copy=False)
     course_date = fields.Date('Course date', required=True, default=fields.Date.today())
 
+    def name_get(self):
+        result = []
+        for record in self:
+            name = f"[{record.name}] {record.course_name}"
+            result.append((record.id, name))
+        return result
+
+    @api.model
+    def _name_search(self, name, args=None, operator='ilike', limit=100, name_get_uid=None):
+        if not args:
+            args = []
+        if name:
+            course_ids = self._search([('name', operator, name)] + args, limit=limit, access_rights_uid=name_get_uid)
+            if not course_ids:
+                course_ids = self._search([('course_name', operator, name)] + args, limit=limit, access_rights_uid=name_get_uid)
+        else:
+            course_ids = self._search(args, limit=limit, access_rights_uid=name_get_uid)
+        return models.lazy_name_get(self.browse(course_ids).with_user(name_get_uid))
+
     @api.model
     def create(self, vals):
         if vals.get('name', _('New')) == _('New'):
@@ -81,12 +100,16 @@ class Session(models.Model):
         default_seats = ICP.get_param('openacademy.session_allowed_seats')
         return default_seats
 
+    @api.onchange('course_id', 'instructor_id')
+    def _get_instructor_domain(self):
+        return {'domain': {'instructor_id': [('id', '=', self.course_id.responsible_id.partner_id.id)]}}
+
     name = fields.Char(required=True)
     start_date = fields.Date(default=fields.date.today())
     duration = fields.Float(digits=(6, 2), help="Duration in days", default=get_default_duration)
     end_date = fields.Date(string="End Date", store=True, compute='_get_end_date', inverse='_set_end_date')
     seats = fields.Integer(string="Number of seats", default=get_default_seats)
-    instructor_id = fields.Many2one('res.partner', string="Instructor", domain=[('country_id', '=', 'Belgium')])
+    instructor_id = fields.Many2one('res.partner', string="Instructor")
     country_id = fields.Many2one('res.country', related='instructor_id.country_id')
     course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")

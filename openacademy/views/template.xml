@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="assets_backend_openacademy" name="open_academy assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/css" href="/openacademy/static/src/css/style.css"/>
+        </xpath>
+    </template>
+
+</odoo>

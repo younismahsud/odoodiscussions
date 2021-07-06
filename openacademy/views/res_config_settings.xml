@@ -19,6 +19,12 @@
                         </div>
                         <div class="col-12 col-lg-6 o_setting_box">
                             <div class="o_setting_right_pane">
+                                <label for="group_stock_multi_openacademy"/>
+                                <field name="group_stock_multi_openacademy"/>
+                            </div>
+                        </div>
+                        <div class="col-12 col-lg-6 o_setting_box">
+                            <div class="o_setting_right_pane">
                                 <label for="session_duration"/>
                                 <field name="session_duration"/>
                             </div>
