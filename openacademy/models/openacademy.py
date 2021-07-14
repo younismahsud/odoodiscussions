@@ -3,6 +3,7 @@ from odoo.exceptions import ValidationError
 from datetime import timedelta
 from odoo.tools.misc import get_lang
 import logging
+from odoo.tools.profiler import profile
 
 logger = logging.getLogger("*___OpenAcademy___*")
 
@@ -131,17 +132,18 @@ class Session(models.Model):
                 session.action_send_session_by_email()
                 session.email_sent = True
 
+    @profile()
     def action_send_session_by_email(self):
-        for attendee in self.attendee_ids:
-            ctx = {}
-            email_list = [attendee.email]
-            if email_list:
-                ctx['email_to'] = ','.join([email for email in email_list if email])
-                ctx['email_from'] = self.env.user.company_id.email
-                ctx['send_email'] = True
-                ctx['attendee'] = attendee.name
-                template = self.env.ref('openacademy.email_template_openacademy_session')
-                template.with_context(ctx).send_mail(self.id, force_send=True, raise_exception=False)
+        # for attendee in self.attendee_ids:
+        ctx = {}
+        email_list = self.attendee_ids.mapped('email')
+        if email_list:
+            ctx['email_to'] = ','.join([email for email in email_list if email])
+            ctx['email_from'] = self.env.user.company_id.email
+            ctx['send_email'] = True
+            ctx['attendee'] = ''
+            template = self.env.ref('openacademy.email_template_openacademy_session')
+            template.with_context(ctx).send_mail(self.id, force_send=True, raise_exception=False)
 
     @api.depends('attendee_ids')
     def _get_attendees_count(self):
