@@ -14,6 +14,10 @@
             <field name="name">Manage Multiple Openacademy</field>
         </record>
 
+        <record id="group_course_approval" model="res.groups">
+            <field name="name">Course Approval</field>
+        </record>
+
         <record id="only_responsible_can_modify" model="ir.rule">
             <field name="name">Only Responsible can modify Course</field>
             <field name="model_id" ref="model_openacademy_course"/>

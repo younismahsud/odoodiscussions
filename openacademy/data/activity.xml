@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <record id="mail_act_course_approval" model="mail.activity.type">
+        <field name="name">Course Approval</field>
+        <field name="res_model_id" ref="openacademy.model_openacademy_course"/>
+    </record>
+
+</odoo>

@@ -19,9 +19,15 @@ class Course(models.Model):
     description = fields.Text('Description', help='Add course description here...')
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True, tracking=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
-    state = fields.Selection([('draft', 'Draft'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
+    state = fields.Selection([('draft', 'Draft'), ('submitted', 'Submitted'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
                               ], string='Status', readonly=False, tracking=True, default='draft', copy=False)
     course_date = fields.Date('Course date', required=True, default=fields.Date.today())
+
+    def action_submit(self):
+        self.state = 'submitted'
+        users = self.env.ref('openacademy.group_course_approval').users
+        for user in users:
+            self.activity_schedule('openacademy.mail_act_course_approval', user_id=user.id, note=f'Please Approve course {self.name}')
 
     def name_get(self):
         result = []
@@ -53,6 +59,12 @@ class Course(models.Model):
         for record in self:
             logger.info(f"Course {record.course_name} state moved to In progress by {self.env.user.name}")
             record.write({'state': 'in_progress'})
+            activity_id = self.env['mail.activity'].search([('res_id', '=', self.id), ('user_id', '=', self.env.user.id),
+                                                            ('activity_type_id', '=', self.env.ref('openacademy.mail_act_course_approval').id)])
+            activity_id.action_feedback(feedback='Approved')
+            other_activity_ids = self.env['mail.activity'].search(
+                [('res_id', '=', self.id), ('activity_type_id', '=', self.env.ref('openacademy.mail_act_course_approval').id)])
+            other_activity_ids.unlink()
 
     def action_completed(self):
         for record in self:

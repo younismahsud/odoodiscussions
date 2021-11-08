@@ -20,10 +20,11 @@
         <field name="arch" type="xml">
             <form string="Course">
                 <header>
-                    <button name="action_validate" type="object" class="oe_highlight" string="Validate" states="draft"/>
+                    <button name="action_submit" type="object" class="oe_highlight" string="Submit for Approval" states="draft"/>
+                    <button name="action_validate" type="object" class="oe_highlight" string="Validate" groups="openacademy.group_course_approval" states="submitted"/>
                     <button name="action_completed" groups="openacademy.group_manager_openacademy" type="object" class="oe_highlight" string="Completed" states="in_progress"/>
                     <button name="action_cancel" type="object" string="Cancel" states="draft,in_progress"/>
-                    <field name="state" widget="statusbar" statusbar_visible="draft,in_progress,completed" options="{'clickable': 1}''"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,submitted,in_progress,completed" options="{'clickable': 1}''"/>
                 </header>
                 <sheet>
                     <widget name="web_ribbon" title="Cancelled" bg_color="bg-danger"
@@ -80,6 +81,7 @@
             <search>
                 <field name="course_name"/>
                 <field name="description"/>
+                <field name="session_ids" filter_domain="[('session_ids.name', 'ilike', self)]"/>
                 <filter name="my_courses" string="My Courses"
                             domain="[('responsible_id', '=', uid)]"/>
                 <group string="Group By">
