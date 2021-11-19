@@ -4,9 +4,10 @@
        ** Button on sale order line to show product sale history.
     """,
     'author': 'Younis',
-    'depends': ['sale'],
+    'depends': ['sale', 'report_xlsx'],
     'data': [
         'views/sale.xml',
+        'reports/report.xml',
     ],
     'installable': True,
 }
