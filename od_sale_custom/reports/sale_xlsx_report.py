@@ -31,8 +31,8 @@ class SaleXlsxReport(models.AbstractModel):
         sheet.write(row+4, col, phone)
 
     def generate_xlsx_report(self, workbook, data, orders):
-        row = 1
         for order in orders:
+            row = 1
             sheet = workbook.add_worksheet(order.name)
             bold = workbook.add_format({"bold": True})
             heading = workbook.add_format({"font_size": 18})
@@ -74,6 +74,10 @@ class SaleXlsxReport(models.AbstractModel):
                 sheet.merge_range(row, 8, row, 9, line.price_unit, money)
                 sheet.write(row, 10, line.price_subtotal, money)
                 row += 1
+
+            formula = f"=sum(K{row-1}:K{row})"
+            row += 1
+            sheet.write(row, 10, formula, money)
 
             sheet.conditional_format(f"A1:M{row+4}", {'type': 'formula', 'criteria': 'True', 'format': white_bg})
             sheet.conditional_format(f"A{row+4}:M{row+4}", {'type': 'formula', 'criteria': 'True', 'format': bottom_border})
