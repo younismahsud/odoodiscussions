@@ -6,7 +6,7 @@
         <field name="model">openacademy.course</field>
         <field name="priority" eval="1"/>
         <field name="arch" type="xml">
-            <tree string="Courses">
+            <tree string="Courses" expand="1">
                 <field name="course_name"/>
                 <field name="description"/>
                 <field name="responsible_id"/>
@@ -21,7 +21,7 @@
             <form string="Course">
                 <header>
                     <button name="action_submit" confirm="Are you sure to proceed this process ?" type="object" class="oe_highlight" string="Submit for Approval" states="draft"/>
-                    <button name="action_validate" type="object" class="oe_highlight" string="Validate" groups="openacademy.group_course_approval" states="submitted"/>
+                    <button name="action_validate" type="object" class="oe_highlight oe_read_only" string="Validate" groups="openacademy.group_course_approval" states="submitted"/>
                     <button name="action_completed" groups="openacademy.group_manager_openacademy" type="object" class="oe_highlight" string="Completed" states="in_progress"/>
                     <button name="action_cancel" type="object" string="Cancel" states="draft,in_progress"/>
                     <field name="state" widget="statusbar" statusbar_visible="draft,submitted,in_progress,completed" options="{'clickable': 1}''"/>
@@ -44,7 +44,7 @@
                             <field name="responsible_id" attrs="{'readonly': [('state', '!=', 'draft')]}"/>
                         </group>
                         <group>
-                            <field name="course_date"/>
+                            <field name="course_date" class="oe_read_only"/>
                         </group>
                     </group>
                     <separator string="General" colspan="2" />
