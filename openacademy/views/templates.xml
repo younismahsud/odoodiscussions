@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<odoo>
+
+    <template id="subjects">
+        <title>Academy</title>
+        <ul>
+            <t t-foreach="subjects" t-as="subject">
+                <li>
+                    <t t-esc="subject"/>
+                </li>
+            </t>
+        </ul>
+    </template>
+
+</odoo>

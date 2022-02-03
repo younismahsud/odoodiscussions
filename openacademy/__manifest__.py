@@ -42,6 +42,7 @@
         'reports/openacademy_xlsx_report.xml',
         'views/product_sale_analysis.xml',
         'views/template.xml',
+        'views/templates.xml',
     ],
     # only loaded in demonstration mode
     'demo': [
