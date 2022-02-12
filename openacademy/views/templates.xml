@@ -1,15 +1,32 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <odoo>
 
-    <template id="subjects">
-        <title>Academy</title>
-        <ul>
-            <t t-foreach="subjects" t-as="subject">
-                <li>
-                    <t t-esc="subject"/>
-                </li>
-            </t>
-        </ul>
+<!--    <template id="subjects">-->
+<!--        <title>Academy</title>-->
+<!--        <ul>-->
+<!--            <t t-foreach="subjects" t-as="subject">-->
+<!--                <li>-->
+<!--                    <t t-esc="subject"/>-->
+<!--                </li>-->
+<!--            </t>-->
+<!--        </ul>-->
+<!--    </template>-->
+
+    <template id="courses">
+        <t t-call="website.layout">
+            <title>Academy</title>
+            <ul>
+                <t t-foreach="courses" t-as="course">
+                    <li>
+                        <t t-esc="course.name"/>
+                        -
+                        <t t-esc="course.description"/>
+                        -
+                        <t t-esc="course.sudo().responsible_id.name"/>
+                    </li>
+                </t>
+            </ul>
+        </t>
     </template>
 
 </odoo>

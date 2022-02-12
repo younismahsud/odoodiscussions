@@ -69,6 +69,14 @@ class Course(models.Model):
     def action_completed(self):
         for record in self:
             record.write({'state': 'completed'})
+            return {
+                'effect': {
+                    'fadeout': 'slow',
+                    'message': 'Course Completed',
+                    'type': 'rainbow_man',
+                    'img_url': 'openacademy/static/img/success.png'
+                }
+            }
 
     def action_cancel(self):
         for record in self:
