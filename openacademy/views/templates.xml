@@ -15,17 +15,32 @@
     <template id="courses">
         <t t-call="website.layout">
             <title>Academy</title>
-            <ul>
-                <t t-foreach="courses" t-as="course">
-                    <li>
-                        <t t-esc="course.name"/>
-                        -
-                        <t t-esc="course.description"/>
-                        -
-                        <t t-esc="course.sudo().responsible_id.name"/>
-                    </li>
-                </t>
-            </ul>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <t t-foreach="courses" t-as="course">
+                        <p>
+                            <a t-attf-href="/academy/{{ slug(course) }}"> <t t-esc="course.course_name"/> </a>
+                        </p>
+                    </t>
+                </div>
+            </div>
+        </t>
+    </template>
+
+    <template id="course_detail">
+        <t t-call="website.layout">
+            <title>Academy</title>
+            <div class="oe_structure"/>
+            <div class="oe_structure">
+                <div class="container">
+                    <h3><t t-esc="course.course_name"/> </h3>
+                    <p><t t-esc="course.description"/></p>
+                    <li><t t-esc="course.responsible_id.name"/></li>
+                    <li><t t-esc="course.course_date"/></li>
+                    <li><t t-esc="course.state"/></li>
+                </div>
+            </div>
         </t>
     </template>
 

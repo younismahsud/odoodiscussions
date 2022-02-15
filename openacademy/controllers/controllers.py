@@ -15,3 +15,8 @@ class OdooAcademy(http.Controller):
             'courses': courses,
         })
 
+    @http.route('/academy/<model("openacademy.course"):course>/', auth='public', website=True)
+    def display_course_detail(self, course):
+        return http.request.render('openacademy.course_detail', {'course': course})
+
+
