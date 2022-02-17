@@ -34,8 +34,8 @@
             <div class="oe_structure"/>
             <div class="oe_structure">
                 <div class="container">
-                    <h3><t t-esc="course.course_name"/> </h3>
-                    <p><t t-esc="course.description"/></p>
+                    <h3 t-field="course.course_name"/>
+                    <p t-field="course.description"/>
                     <li><t t-esc="course.responsible_id.name"/></li>
                     <li><t t-esc="course.course_date"/></li>
                     <li><t t-esc="course.state"/></li>

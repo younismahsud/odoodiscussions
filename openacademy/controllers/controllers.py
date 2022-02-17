@@ -10,7 +10,7 @@ class OdooAcademy(http.Controller):
         #     'subjects':
         #         ['Math', 'English', 'Programming', 'Operating System'],
         # })
-        courses = http.request.env['openacademy.course'].search([('state', 'in', ('submitted', 'in-progress', 'completed'))])
+        courses = http.request.env['openacademy.course'].search([('state', 'in', ('draft', 'in-progress', 'completed'))])
         return http.request.render('openacademy.courses', {
             'courses': courses,
         })
