@@ -8,6 +8,7 @@
     'data': [
         'views/sale.xml',
         'reports/report.xml',
+        'views/invoice.xml',
     ],
     'installable': True,
 }

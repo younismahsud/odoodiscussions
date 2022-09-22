@@ -6,11 +6,18 @@
         <field name="model">sale.order</field>
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
+            <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="before">
+                <field name="test_amount"/>
+            </xpath>
             <xpath expr="//notebook/page/field[@name='order_line']/tree/field[@name='price_unit']" position="after">
                 <button name="open_sale_order_lines" string="Sales history" type="object" class="oe_inline">
                     Sales history
                 </button>
             </xpath>
+            <field name="payment_term_id" position="after">
+                <field name="cust_email" widget="CopyClipboardChar"/>
+                <field name="duration" widget="mrp_time_counter"/>
+            </field>
         </field>
     </record>
 

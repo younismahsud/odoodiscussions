@@ -50,6 +50,8 @@
                     <separator string="General" colspan="2" />
                     <group colspan="2" col="2">
                         <field name="description" placeholder="Course description..." attrs="{'readonly': [('state', '!=', 'draft')]}"/>
+                        <field name="description_company_dependent"/>
+                        <field name="company_id" groups="base.group_multi_company"/>
                     </group>
                     <notebook>
                         <page string="Sessions">
@@ -139,6 +141,7 @@
                                 <field name="duration"/>
                                 <field name="seats"/>
                                 <field name="taken_seats" widget="progressbar"/>
+                                <field name="company_id" groups="base.group_multi_company"/>
                             </group>
                         </group>
                         <label for="attendee_ids"/>
@@ -152,7 +155,7 @@
         <field name="name">session.tree</field>
         <field name="model">openacademy.session</field>
         <field name="arch" type="xml">
-            <tree string="Session Tree" decoration-bf="duration&lt;5" decoration-it="duration&gt;15">
+            <tree string="Session Tree" decoration-bf="duration&lt;5" decoration-it="duration&gt;15" multi_edit="1">
                 <field name="name"/>
                 <field name="course_id"/>
                 <field name="start_date"/>

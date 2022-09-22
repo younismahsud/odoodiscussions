@@ -16,12 +16,19 @@ class Course(models.Model):
 
     name = fields.Char(string="Course Number", required=True, index=True, copy=False, readonly=True, default=_('New'))
     course_name = fields.Char(string='Course Name', required=True, translate=True, tracking=True)
-    description = fields.Text('Description', help='Add course description here...')
+    description = fields.Text('Description', help='Add course description here...', company_dependent=True)
+    description_company_dependent = fields.Text(compute='compute_company_dependent_text')
     responsible_id = fields.Many2one('res.users', ondelete='set null', string="Responsible", index=True, tracking=True)
     session_ids = fields.One2many('openacademy.session', 'course_id', string="Sessions")
     state = fields.Selection([('draft', 'Draft'), ('submitted', 'Submitted'), ('in_progress', 'In Progress'), ('completed', 'Completed'), ('cancel', 'Cancel')
                               ], string='Status', readonly=False, tracking=True, default='draft', copy=False)
     course_date = fields.Date('Course date', required=True, default=fields.Date.today())
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
+
+    @api.depends_context('force_company')
+    def compute_company_dependent_text(self):
+        for record in self:
+            record.description_company_dependent = record.description + " " + record.name
 
     def action_submit(self):
         self.state = 'submitted'
@@ -132,7 +139,7 @@ class Session(models.Model):
     seats = fields.Integer(string="Number of seats", default=get_default_seats)
     instructor_id = fields.Many2one('res.partner', string="Instructor")
     country_id = fields.Many2one('res.country', related='instructor_id.country_id')
-    course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True)
+    course_id = fields.Many2one('openacademy.course', ondelete='cascade', string="Course", required=True, check_company=True)
     attendee_ids = fields.Many2many('res.partner', string="Attendees")
     taken_seats = fields.Float(string="Taken seats", compute='_taken_seats')
     active = fields.Boolean(string='Active', default=True)
@@ -141,6 +148,7 @@ class Session(models.Model):
     color = fields.Integer()
     email_sent = fields.Boolean('Email Sent', default=False)
     image_1920 = fields.Image("Image")
+    company_id = fields.Many2one('res.company', required=True, default=lambda self: self.env.company)
 
     def number_of_attendees(self):
         return len(self.attendee_ids)

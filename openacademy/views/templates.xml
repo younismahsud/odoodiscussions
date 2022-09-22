@@ -44,4 +44,87 @@
         </t>
     </template>
 
+    <template id="course_detail" name="My Course">
+        <t t-call="portal.portal_layout">
+            <t t-set="o_portal_fullwidth_alert" groups="project.group_project_user">
+                <t t-call="portal.portal_back_in_edit_mode">
+                    <t t-set="backend_url" t-value="'/web#model=openacademy.course&amp;id=%s&amp;view_type=form' % (course.id)"/>
+                </t>
+            </t>
+            <t t-call="portal.portal_record_layout">
+                <t t-set="card_header">
+                    <h5 class="mb-0">
+                        <small class="text-muted">Course - </small><span t-field="course.name"/>
+                        <span class="float-right">
+                        </span>
+                    </h5>
+                </t>
+                <t t-set="card_body">
+                    <h3 t-field="course.course_name"/>
+                    <p t-field="course.description"/>
+                    <li><t t-esc="course.responsible_id.name"/></li>
+                    <li><t t-esc="course.course_date"/></li>
+                    <li><t t-esc="course.state"/></li>
+                </t>
+            </t>
+        </t>
+    </template>
+
+    <template id="portal_all_courses" name="Portal My Home : Courses" inherit_id="portal.portal_my_home">
+        <xpath expr="//div[hasclass('o_portal_docs')]" position="inside">
+            <t t-if="quotation_count" t-call="portal.portal_docs_entry">
+                <t t-set="title">Courses</t>
+                <t t-set="url" t-value="'/academy/courses/'"/>
+                <t t-set="count" t-value="count_courses"/>
+            </t>
+        </xpath>
+    </template>
+
+    <template id="portal_my_home_menu_course" name="Portal layout : courses menu entries" inherit_id="portal.portal_breadcrumbs" priority="20">
+        <xpath expr="//ol[hasclass('o_portal_submenu')]" position="inside">
+            <li t-if="page_name == 'course'" t-attf-class="breadcrumb-item #{'active ' if not course else ''}">
+                <a t-if="course" t-attf-href="/academy/courses?{{ keep_query() }}">Courses</a>
+                <t t-else="">Courses</t>
+            </li>
+            <li t-if="course" class="breadcrumb-item active">
+                <t t-esc="course.name"/>
+            </li>
+        </xpath>
+    </template>
+
+    <template id="portal_openacademy_courses" name="Courses">
+        <t t-call="portal.portal_layout">
+            <t t-set="breadcrumbs_searchbar" t-value="True"/>
+
+            <t t-call="portal.portal_searchbar">
+                <t t-set="title">Courses</t>
+            </t>
+            <t t-if="not courses">
+                <p>There are currently no course available.</p>
+            </t>
+            <t t-if="courses" t-call="portal.portal_table">
+                <thead>
+                    <tr class="active">
+                        <th>Course Name</th>
+                        <th>Course #</th>
+                        <th class="text-right">Course Date</th>
+                        <th class="text-center">Responsible</th>
+                        <th class="text-right">State</th>
+                    </tr>
+                </thead>
+                <t t-foreach="courses" t-as="course">
+                    <tr>
+                        <td><a t-attf-href="/academy/{{ slug(course) }}"> <t t-esc="course.course_name"/> </a></td>
+                        <td class="text-right"><span t-field="course.name"/></td>
+                        <td class="text-right"><span t-field="course.course_date"/></td>
+                        <td class="text-right"><span t-field="course.responsible_id"/></td>
+                        <td class="text-right">
+                            <span class="badge badge-pill badge-secondary"> <span t-field="course.state"/></span>
+                        </td>
+                    </tr>
+                </t>
+            </t>
+        </t>
+    </template>
+
 </odoo>

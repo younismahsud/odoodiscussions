@@ -20,13 +20,14 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'sale', 'report_xlsx', 'website'],
+    'depends': ['base', 'mail', 'sale', 'report_xlsx', 'website', 'portal'],
 
     # always loaded
     'data': [
         'data/activity.xml',
         'security/res_groups.xml',
         'security/ir.model.access.csv',
+        'views/assets.xml',
         'views/openacademy.xml',
         'views/res_partner.xml',
         'reports/custom_header_footer.xml',
@@ -43,6 +44,8 @@
         'views/product_sale_analysis.xml',
         'views/template.xml',
         'views/templates.xml',
+        'views/website_menus.xml',
+
     ],
     # only loaded in demonstration mode
     'demo': [
